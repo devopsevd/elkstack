@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.3
+    ports: 
+      - "9200:9200"
+    tty: true
+    networks:
+      - prodnetwork
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana-oss:6.2.4
+    ports:
+      - "5601:5601"
+    links: 
+      - elasticsearch
+    tty: true
+    networks:
+      - prodnetwork
+
+volumes:
+  data: {}
+  
+networks:
+  prodnetwork:
+    driver: bridge
